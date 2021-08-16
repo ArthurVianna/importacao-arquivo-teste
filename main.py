@@ -23,11 +23,6 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/info/")
-def info():
-    return get_settings().DATABASE_URL
-
-
 @app.get("/users/", response_model=List[schemas.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     db_user = crud.get_users(db, skip, limit)
